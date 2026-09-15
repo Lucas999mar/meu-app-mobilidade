@@ -1,0 +1,15 @@
+node_modules
+dist
+.next
+.expo
+.vscode
+.env
+.env.*
+!.env.example
+*.log
+coverage
+build
+apps/driver/node_modules
+apps/customer/node_modules
+apps/admin/node_modules
+services/api/node_modules

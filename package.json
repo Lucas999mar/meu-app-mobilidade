@@ -1,0 +1,22 @@
+{
+    "name": "mobilidade-regional",
+    "version": "0.1.0",
+    "private": true,
+    "description": "Plataforma de transporte por aplicativo — Mobilidade Regional",
+    "workspaces": [
+        "packages/*",
+        "services/*",
+        "apps/*"
+    ],
+    "scripts": {
+        "dev:api": "cd services/api && npm run dev",
+        "dev:admin": "cd apps/admin && npm run dev",
+        "dev:worker": "cd services/worker && npm run dev",
+        "db:migrate": "cd services/api && npm run db:migrate",
+        "db:seed": "cd services/api && npm run db:seed",
+        "test": "cd services/api && npm test"
+    },
+    "engines": {
+        "node": ">=20.0.0"
+    }
+}

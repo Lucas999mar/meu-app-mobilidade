@@ -1,0 +1,41 @@
+services:
+  - type: web
+    name: mobilidade-api
+    env: node
+    region: ohio
+    plan: free
+    buildCommand: "cd services/api && npm install && npm run build"
+    startCommand: "cd services/api && npm run start:prod"
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: API_PORT
+        value: "10000"
+      - key: DATABASE_URL
+        fromDatabase:
+          name: mobilidade-postgres
+          property: connectionString
+      - key: REDIS_URL
+        fromService:
+          type: redis
+          name: mobilidade-redis
+          property: connectionString
+      - key: JWT_SECRET
+        value: "chave_super_secreta_aqui_para_producao_2026_mobilidade"
+      - key: GOOGLE_MAPS_API_KEY
+        value: "YOUR_GOOGLE_MAPS_KEY_HERE"
+      - key: PAYMENT_PROVIDER
+        value: "stripe" # asaas | pagarme | efibank | mercadopago | stripe
+
+  - type: redis
+    name: mobilidade-redis
+    plan: free
+    region: ohio
+    maxmemoryPolicy: allkeys-lru
+
+databases:
+  - name: mobilidade-postgres
+    plan: free
+    region: ohio
+    databaseName: mobilidade_app
+    user: nestjs_worker
