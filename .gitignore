@@ -13,3 +13,5 @@ apps/driver/node_modules
 apps/customer/node_modules
 apps/admin/node_modules
 services/api/node_modules
+.vercel
+.env*

@@ -1,6 +1,6 @@
 import io, { Socket } from 'socket.io-client';
 
-const API_URL = 'http://10.0.2.2:3000'; // Emulador Android
+const API_URL = 'https://mobilidade-api.onrender.com';
 
 class SocketService {
     private socket: Socket | null = null;
