@@ -4,9 +4,11 @@ services:
     env: node
     region: ohio
     plan: free
-    buildCommand: "cd services/api && npm install && npm run build"
-    startCommand: "cd services/api && npm run start:prod"
+    buildCommand: "cd services/api && npm install --include=dev && npm run build"
+    startCommand: "cd services/api && npm run start"
     envVars:
+      - key: NODE_VERSION
+        value: "20"
       - key: NODE_ENV
         value: production
       - key: API_PORT
