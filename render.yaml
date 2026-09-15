@@ -32,6 +32,7 @@ services:
     plan: free
     region: ohio
     maxmemoryPolicy: allkeys-lru
+    ipAllowList: []
 
 databases:
   - name: mobilidade-postgres
@@ -39,3 +40,4 @@ databases:
     region: ohio
     databaseName: mobilidade_app
     user: nestjs_worker
+    ipAllowList: []
