@@ -40,8 +40,12 @@ export default function HomeScreen() {
         <View style={styles.container}>
             {Platform.OS === 'web' ? (
                 <View style={styles.webMapPlaceholder}>
-                    <Text style={{ color: '#aaa', fontSize: 18 }}>[Mapa do Navegador]</Text>
-                    <Text style={{ color: '#666', marginTop: 10 }}>O sistema de Mapas Nativos exige o Aplicativo Celular.</Text>
+                    <iframe
+                        width="100%"
+                        height="100%"
+                        style={{ border: 0 }}
+                        src="https://www.openstreetmap.org/export/embed.html?bbox=-41.85%2C-22.42%2C-41.70%2C-22.32&amp;layer=mapnik"
+                    />
                 </View>
             ) : (
                 <MapView style={styles.map} initialRegion={initialRegion} showsUserLocation />

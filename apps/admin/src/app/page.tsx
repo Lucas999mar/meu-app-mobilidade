@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback } from 'react';
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://mobilidade-api.onrender.com';
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://mobilidade-api.onrender.com/api';
 
 // Sidebar items
 const sidebarItems = [
