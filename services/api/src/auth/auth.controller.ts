@@ -35,21 +35,22 @@ export class AuthController {
             .filter((s: string) => s.length > 0 && !s.startsWith('--'));
 
         const client = await this.authService['pool'].connect();
+        let currentStatement = '';
         try {
             await client.query('BEGIN');
             for (let i = 0; i < statements.length; i++) {
-                if (statements[i].includes('CREATE TYPE')) {
-                    // Try to catch error for CREATE TYPE separately since it doesn't support IF NOT EXISTS
-                    try { await client.query(statements[i]); } catch (e) { /* ignore */ }
+                currentStatement = statements[i];
+                if (currentStatement.includes('CREATE TYPE')) {
+                    try { await client.query(currentStatement); } catch (e) { /* ignore */ }
                 } else {
-                    await client.query(statements[i]);
+                    await client.query(currentStatement);
                 }
             }
             await client.query('COMMIT');
             return { status: 'success', executed: statements.length };
         } catch (err: any) {
             await client.query('ROLLBACK');
-            return { status: 'error', statement: err.query, message: err.message, stack: err.stack };
+            return { status: 'error', failingStatement: currentStatement.substring(0, 100), message: err.message, stack: err.stack };
         } finally {
             client.release();
         }
