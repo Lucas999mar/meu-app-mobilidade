@@ -37,10 +37,15 @@ export class AuthService {
         }
 
         // Buscar ou criar usuário
-        let userResult = await this.pool.query(
-            'SELECT * FROM users WHERE phone = $1',
-            [phone],
-        );
+        let userResult;
+        try {
+            userResult = await this.pool.query(
+                'SELECT * FROM users WHERE phone = $1',
+                [phone],
+            );
+        } catch (dbError: any) {
+            throw new UnauthorizedException(`DB Error: ${dbError.message}`);
+        }
 
         if (userResult.rows.length === 0) {
             throw new UnauthorizedException('Usuário não encontrado');
