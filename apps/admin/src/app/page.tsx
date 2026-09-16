@@ -381,35 +381,41 @@ export default function AdminPage() {
 
     return (
         <div className="app-container">
-            {/* Sidebar */}
-            <aside className="sidebar">
-                <div className="sidebar-brand">
-                    <div className="sidebar-brand-icon">🚗</div>
-                    <div>
-                        <div className="sidebar-brand-text">Mobilidade</div>
-                        <div className="sidebar-brand-sub">Regional</div>
+            <header className="top-navbar">
+                <div className="top-brand-area">
+                    <div className="brand-section">
+                        <div className="brand-icon">🚘</div>
+                        <div className="brand-text">
+                            Conecta Mobilidade
+                            <span className="brand-sub">9978</span>
+                        </div>
+                    </div>
+                    <div className="top-actions-area">
+                        <span style={{ color: '#f59e0b', fontWeight: 'bold' }}>Clube Machine</span>
+                        <span style={{ color: '#dc3545', fontWeight: 'bold' }}>Machine TV <span style={{ fontWeight: 'normal' }}>Ao vivo</span></span>
+                        <span className="btn-update">Atualizações</span>
+                        <div style={{ textAlign: 'right', marginLeft: 16, lineHeight: 1.2 }}>
+                            <div style={{ color: '#333' }}>Teste</div>
+                            <div style={{ color: 'var(--text-muted)', fontSize: 11 }}>Administrador</div>
+                        </div>
                     </div>
                 </div>
 
-                <nav className="sidebar-nav">
+                <nav className="bottom-nav-area">
                     {sidebarItems.map(item => (
                         <button
                             key={item.id}
                             className={`nav-item ${activeTab === item.id ? 'active' : ''}`}
                             onClick={() => handleTabChange(item.id)}
                         >
-                            <span className="nav-item-icon">{item.icon}</span>
                             {item.label}
                         </button>
                     ))}
+                    <button className="nav-item">Comunicação</button>
+                    <button className="nav-item">Configurações</button>
+                    <button className="nav-item">Ajuda</button>
                 </nav>
-
-                <div style={{ borderTop: '1px solid var(--border)', paddingTop: 16, marginTop: 16 }}>
-                    <div className="demo-badge" style={{ width: '100%', justifyContent: 'center' }}>
-                        ⚠️ DEMONSTRAÇÃO
-                    </div>
-                </div>
-            </aside>
+            </header>
 
             {/* Main Content */}
             <main className="main-content">
