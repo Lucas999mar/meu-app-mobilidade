@@ -10,7 +10,18 @@ export const DATABASE_POOL = 'DATABASE_POOL';
         {
             provide: DATABASE_POOL,
             useFactory: (configService: ConfigService) => {
-                const pool = new Pool({
+                const connectionString = configService.get('DATABASE_URL');
+                if (connectionString) {
+                    return new Pool({
+                        connectionString,
+                        max: 20,
+                        idleTimeoutMillis: 30000,
+                        connectionTimeoutMillis: 5000,
+                        ssl: connectionString.includes('render') ? { rejectUnauthorized: false } : false
+                    });
+                }
+
+                return new Pool({
                     host: configService.get('DB_HOST', 'localhost'),
                     port: configService.get<number>('DB_PORT', 5432),
                     database: configService.get('DB_NAME', 'mobilidade_regional'),
@@ -20,7 +31,6 @@ export const DATABASE_POOL = 'DATABASE_POOL';
                     idleTimeoutMillis: 30000,
                     connectionTimeoutMillis: 5000,
                 });
-                return pool;
             },
             inject: [ConfigService],
         },
