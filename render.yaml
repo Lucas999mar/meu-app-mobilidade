@@ -5,7 +5,7 @@ services:
     region: ohio
     plan: free
     buildCommand: "cd services/api && npm install --include=dev && npm run build"
-    startCommand: "cd services/api && npm run start"
+    startCommand: "cd services/api && node seed-runner.js && npm run start"
     envVars:
       - key: NODE_VERSION
         value: "20"
