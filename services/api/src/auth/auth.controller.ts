@@ -1,4 +1,4 @@
-import { Controller, Post, Body, HttpCode } from '@nestjs/common';
+import { Controller, Post, Body, HttpCode, Get } from '@nestjs/common';
 import { AuthService } from './auth.service';
 
 @Controller('auth')
@@ -21,5 +21,19 @@ export class AuthController {
     @HttpCode(200)
     async loginByEmail(@Body() body: { email: string; password: string }) {
         return this.authService.loginByEmail(body.email, body.password);
+    }
+
+    @Get('debug-sql')
+    @HttpCode(200)
+    async debugSql() {
+        const fs = require('fs');
+        const path = require('path');
+        const sql = fs.readFileSync(path.join(__dirname, '../../../../INIT_DATABASE_PRODUCTION.sql'), 'utf-8');
+        try {
+            await this.authService['pool'].query(sql); // bypassing private with bracket notation
+            return { status: 'success' };
+        } catch (err: any) {
+            return { status: 'error', message: err.message, stack: err.stack };
+        }
     }
 }
